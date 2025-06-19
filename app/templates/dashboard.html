@@ -1,0 +1,70 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<div class="d-flex justify-content-between align-items-center mb-4">
+    <h2 class="mb-0">Browse Items</h2>
+    <a href="{{ url_for('main.create_post') }}" class="btn btn-success">+ Create Post</a>
+</div>
+
+<form method="get" action="{{ url_for('main.dashboard') }}" class="form-inline mb-4">
+    <div class="form-group mr-2">
+        <label for="category" class="mr-2">Category:</label>
+        <select name="category" id="category" class="form-control">
+            <option value="">All</option>
+            {% for cat in categories %}
+                <option value="{{ cat }}" {% if selected_category == cat %}selected{% endif %}>{{ cat }}</option>
+            {% endfor %}
+        </select>
+    </div>
+    <button type="submit" class="btn btn-outline-success">Filter</button>
+</form>
+
+{% if posts %}
+    {% for post in posts %}
+        <div class="card mb-4 shadow-sm border-0 p-3" style="background-color: #fff; border-radius: 10px;">
+            <div class="row no-gutters">
+                {% if post.image %}
+                <div class="col-md-4 text-center">
+                    <img src="{{ url_for('static', filename='uploads/' ~ post.image) }}"
+                         alt="Post Image"
+                         class="img-fluid"
+                         style="max-height: 200px; border-radius: 10px; border: 1px solid #ddd; box-shadow: 0 2px 6px rgba(0,0,0,0.08);">
+                </div>
+                {% endif %}
+                <div class="col-md-8 px-4 d-flex flex-column justify-content-between">
+                    <div>
+                        <h4 class="text-dark font-weight-bold mb-2">{{ post.title }}</h4>
+
+                        <div class="text-muted small">
+                            <div><strong class="text-dark">Posted by:</strong> {{ post.owner.username if post.owner else 'Unknown' }}</div>
+                            <div><strong class="text-dark">Category:</strong> {{ post.category }}</div>
+                            <div><strong class="text-dark">Province:</strong> {{ post.province }}</div>
+                           <div><strong class="text-dark">Contact:</strong><a href="https://wa.me/{{ post.phone }}"> https://wa.me/{{ post.phone }}</a></div>
+                        </div>
+
+                        <br>
+                        <p class="text-dark" style="white-space: pre-line;">{{ post.description }}</p>
+                    </div>
+
+                    <div class="d-flex justify-content-between align-items-center mt-2">
+                        <div>
+                            {% if post.status == 'accepted' %}
+                                <span class="badge badge-success px-3 py-2">Accepted</span>
+                            {% else %}
+                                <span class="badge badge-warning px-3 py-2">Available</span>
+                            {% endif %}
+                        </div>
+                        {% if post.status != 'accepted' %}
+                            <a href="{{ url_for('main.exchange', post_id=post.id) }}" class="btn btn-primary btn-sm">Request Exchange</a>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+        </div>
+    {% endfor %}
+{% else %}
+    <div class="alert alert-info">No items available at the moment. Check back later.</div>
+{% endif %}
+
+{% endblock %}

@@ -1,0 +1,30 @@
+{% extends 'base.html' %}
+{% block content %}
+<h2>Posts by {{ user.first_name }} {{ user.last_name }}</h2>
+
+{% for post in posts %}
+  <div class="card mb-3 p-3">
+    <strong>{{ post.title }}</strong><br>
+    <img src="{{ url_for('static', filename='uploads/' + post.image) }}" width="100"><br>
+    Province: {{ post.province }}<br>
+    Phone: {{ post.phone }}<br>
+    Category: {{ post.category }}<br>
+
+    <div class="row mt-3">
+      <div class="col-6">
+        <a href="{{ url_for('main.admin_edit_post', post_id=post.id) }}"
+           class="btn btn-warning btn-block w-100">Edit</a>
+      </div>
+      <div class="col-6">
+        <form action="{{ url_for('main.admin_delete_post', post_id=post.id) }}"
+              method="POST"
+              onsubmit="return confirm('⚠️ Are you sure you want to permanently delete this post? This action cannot be undone.');">
+          <button type="submit" class="btn btn-danger btn-block w-100">Delete</button>
+        </form>
+      </div>
+    </div>
+  </div>
+{% else %}
+  <p>No posts by this user.</p>
+{% endfor %}
+{% endblock %}

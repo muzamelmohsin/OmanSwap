@@ -1,0 +1,59 @@
+{% extends 'base.html' %}
+{% block content %}
+<h2>Admin Panel</h2>
+
+<h3>All Users</h3>
+<table class="table">
+  <thead>
+    <tr>
+      <th>Username</th>
+      <th>Name</th>
+      <th>Phone</th>
+      <th>Role</th>
+      <th>Actions</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for user in users %}
+      <tr>
+        <td>{{ user.username }}</td>
+        <td>{{ user.first_name }} {{ user.last_name }}</td>
+        <td>{{ user.phone_number }}</td>
+        <td>{{ user.role }}</td>
+        <td>
+  <a href="{{ url_for('main.edit_user', user_id=user.id) }}" class="btn btn-sm btn-primary">Edit</a>
+  <a href="{{ url_for('main.admin_user_posts', user_id=user.id) }}" class="btn btn-sm btn-secondary">Posts</a>
+  <form action="{{ url_for('main.delete_user', user_id=user.id) }}" method="POST" style="display:inline;" onsubmit="return confirm('⚠️ Are you sure you want to permanently delete this user and all their data?');">
+    <button type="submit" class="btn btn-sm btn-danger">Delete</button>
+  </form>
+</td>
+
+      </tr>
+    {% endfor %}
+  </tbody>
+</table>
+
+<hr>
+<h3>Manage Categories</h3>
+
+<form method="POST" action="{{ url_for('main.add_category') }}" class="form-inline mb-3">
+    <input type="text" name="new_category" class="form-control mr-2" placeholder="New Category" required>
+    <button type="submit" class="btn btn-primary">Add Category</button>
+</form>
+
+<ul class="list-group">
+  {% for cat in categories %}
+    <li class="list-group-item d-flex justify-content-between align-items-center">
+      {{ cat.name }}
+      <form action="{{ url_for('main.delete_category', category_id=cat.id) }}" method="POST" style="display:inline;">
+        <button type="submit" class="btn btn-sm btn-danger">Delete</button>
+      </form>
+    </li>
+  {% endfor %}
+</ul>
+
+
+<hr>
+<h3>Generate Reports</h3>
+<a class="btn btn-info" href="{{ url_for('main.exchange_report') }}">View Exchange Statistics</a>
+{% endblock %}

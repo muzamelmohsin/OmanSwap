@@ -1,0 +1,196 @@
+/* === Reset + Base === */
+html, body {
+    height: 100%;
+    margin: 0;
+    font-family: Arial, sans-serif;
+    background-color: #fcfcf6;
+    color: #000;
+    overflow-x: hidden;
+    overflow-y: auto;
+}
+
+/* === Container Styling === */
+.container {
+    max-width: 900px;
+    margin: auto;
+    padding: 20px;
+    background-color: #fff;
+    border-radius: 10px;
+}
+
+/* === Navbar/Header === */
+.navbar {
+    background-color: #257362 !important;
+    padding: 10px 20px;
+}
+
+.navbar-brand,
+.navbar-nav .nav-link {
+    color: #257362 !important;
+}
+
+.navbar-nav .nav-link:hover {
+    background-color: #fcfcf6;
+    color: #257362 !important;
+    border-radius: 10px;
+    transition: 0.3s;
+}
+
+.nav-item a.nav-link {
+    padding: 8px 14px;
+    border-radius: 6px;
+    color: #257362 !important;
+    transition: 0.2s;
+}
+
+.nav-item a.nav-link:hover {
+    background-color: #fcfcf6;
+    color: #257362 !important;
+}
+
+/* === Buttons === */
+.btn,
+button {
+    background-color: #257362;
+    color: #fcfcf6;
+    border: none;
+    border-radius: 8px;
+    padding: 8px 16px;
+    transition: background-color 0.3s ease;
+}
+
+.btn:hover,
+button:hover {
+    background-color: #1d5a50;
+    color: #fff;
+}
+
+/* === Form Styling === */
+.form-control {
+    border-radius: 6px;
+    border: 1px solid #ccc;
+}
+
+textarea.form-control {
+    resize: none;
+}
+
+/* === Forms === */
+form {
+    margin-bottom: 40px;
+}
+
+/* === Alerts === */
+.alert {
+    border-radius: 6px;
+    padding: 10px;
+    margin-top: 20px;
+}
+
+.alert-info {
+    background-color: #e6f5f2;
+    color: #257362;
+}
+
+/* === Footer === */
+footer {
+    text-align: center;
+    padding: 15px;
+    background-color: #fcfcf6;
+    color: #6c757d;
+    margin-top: 40px;
+}
+
+/* === Cards === */
+.card {
+    border: none;
+    background-color: #fff;
+    border-radius: 10px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+    padding: 15px;
+}
+
+.card-body {
+    color: #000;
+}
+
+/* === Headings & Text === */
+h1, h2, h3, h4, h5 {
+    color: #257362;
+}
+
+/* === Custom Home Page / Landing === */
+.header {
+    background-color: #fcfcf6;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 50px;
+}
+
+.small-image {
+    width: 100px;
+    height: auto;
+}
+
+.header-links a {
+    color: #257362;
+    padding: 0 20px;
+    text-decoration: none;
+    border-radius: 10px;
+    transition: background-color 0.3s;
+}
+
+.header-links a:hover {
+    background-color: #e4e4e4;
+}
+
+.header-links button {
+    background-color: #257362;
+    color: #fcfcf6;
+    border: none;
+    padding: 6px 14px;
+    border-radius: 10px;
+}
+
+.header-links button:hover {
+    background-color: #1d5a50;
+}
+
+/* === Landing Page === */
+.landing-page {
+    background-color: #fcfcf6;
+    padding: 40px 50px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    color: #257362;
+}
+
+.add-item {
+    background-color: #257362;
+    border: none;
+    border-radius: 10px;
+    width: 120px;
+    color: white;
+    position: absolute;
+    left: 200px;
+    top: 225px;
+}
+
+/* === Category Boxes === */
+.catigory-box {
+    text-align: center;
+    border-radius: 10px;
+    background-color: #fcfcf6;
+    padding: 20px;
+    margin: 15px;
+    width: 22%;
+    float: left;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    transition: 0.3s;
+}
+
+.catigory-box:hover {
+    background-color: #e6f5f2;
+}

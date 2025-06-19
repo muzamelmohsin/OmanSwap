@@ -1,0 +1,17 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="landing-page">
+    <div>
+        <span style="font-size: 1.5rem;">Welcome to</span>
+        <h1 style="font-size: 3rem;">OmanSwap</h1>
+        <p style="max-width: 400px;">
+            OmanSwap is a platform for exchanging used items. Join us to preserve the environment and benefit from your old items.
+        </p>
+        <a href="{{ url_for('main.dashboard') }}" class="btn mt-3">Browse Items</a>
+    </div>
+    <div>
+        <img src="{{ url_for('static', filename='images/logo.png') }}" class="landing-image" alt="OmanSwap Logo" width="523px" height="240">
+    </div>
+</div>
+{% endblock %}

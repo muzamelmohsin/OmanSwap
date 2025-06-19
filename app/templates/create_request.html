@@ -1,0 +1,54 @@
+{% extends "base.html" %}
+
+{% block content %}
+    <h2>Post a New Request</h2>
+    <form method="POST" enctype="multipart/form-data" class="mt-4">
+        <div class="form-group">
+            <label for="title">Item Title</label>
+            <input type="text" class="form-control" id="title" name="title" required>
+        </div>
+
+        <div class="form-group">
+            <label for="description">Item Description</label>
+            <textarea class="form-control" id="description" name="description" rows="3" required></textarea>
+        </div>
+
+        <div class="form-group">
+            <label for="category">Category</label>
+            <select class="form-control" id="category" name="category" required>
+                <option value="Books">Books</option>
+                <option value="Electronics">Electronics</option>
+                <option value="Musical Instruments">Musical Instruments</option>
+            </select>
+        </div>
+
+        <div class="form-group">
+            <label for="province">Location (Province)</label>
+            <select class="form-control" id="province" name="province" required>
+                <option value="Muscat">Muscat</option>
+                <option value="Dhofar">Dhofar</option>
+                <option value="Ad Dakhiliyah">Ad Dakhiliyah</option>
+                <option value="Al Batinah North">Al Batinah North</option>
+                <option value="Al Batinah South">Al Batinah South</option>
+                <option value="Al Sharqiyah North">Al Sharqiyah North</option>
+                <option value="Al Sharqiyah South">Al Sharqiyah South</option>
+                <option value="Musandam">Musandam</option>
+                <option value="Al Wusta">Al Wusta</option>
+                <option value="Al Dhahirah">Al Dhahirah</option>
+                <option value="Al Buraimi">Al Buraimi</option>
+            </select>
+        </div>
+
+        <div class="form-group">
+            <label for="phone">Your Phone Number</label>
+            <input type="text" class="form-control" id="phone" name="phone" required>
+        </div>
+
+        <div class="form-group">
+            <label for="image">Upload Item Image</label>
+            <input type="file" class="form-control" id="image" name="image" accept="image/*">
+        </div>
+
+        <button type="submit" class="btn btn-primary">Post Request</button>
+    </form>
+{% endblock %}

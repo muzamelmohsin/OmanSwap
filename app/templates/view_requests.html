@@ -1,0 +1,33 @@
+{% extends "base.html" %}
+
+{% block content %}
+    <h2>All Available Requests</h2>
+
+    {% for req in requests %}
+        <div class="item-card mb-4 border p-3 rounded shadow-sm">
+            {% if req.image %}
+                <img src="{{ url_for('static', filename='uploads/' ~ req.image) }}" style="max-width: 200px;" class="mb-2">
+            {% endif %}
+
+            <p><strong>Title:</strong> {{ req.title }}</p>
+            <p><strong>Category:</strong> {{ req.category }}</p>
+            <p><strong>Description:</strong> {{ req.description }}</p>
+            <p><strong>Status:</strong>
+                {% if req.status == 'accepted' %}
+                    <span class="text-success">Item already accepted</span>
+                {% else %}
+                    Open
+                {% endif %}
+            </p>
+            <p><strong>Posted by:</strong> {{ req.user.username }}</p>
+            <p><strong>Contact:</strong> {{ req.user.phone_number }}</p>
+            <p><strong>Location:</strong> {{ req.user.province }}</p>
+
+            {% if req.status != 'accepted' %}
+                <form method="POST" action="{{ url_for('main.exchange_request', request_id=req.id) }}">
+                    <button type="submit" class="btn btn-primary">Request Exchange</button>
+                </form>
+            {% endif %}
+        </div>
+    {% endfor %}
+{% endblock %}

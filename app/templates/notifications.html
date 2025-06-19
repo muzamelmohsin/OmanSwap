@@ -1,0 +1,75 @@
+{% extends 'base.html' %}
+{% block content %}
+<h2>Notifications</h2>
+
+<h3>Incoming Exchange Requests</h3>
+{% for exch in incoming %}
+  <div class="card mb-3 p-3">
+    <h4>{{ exch.proposer.first_name }} {{ exch.proposer.last_name }} wants to exchange with your item:</h4>
+
+    <strong>Your Item:</strong><br>
+    <strong>{{ exch.target_post.title }}</strong><br>
+    <img src="{{ url_for('static', filename='uploads/' + exch.target_post.image) }}" width="100"><br>
+    Province: {{ exch.target_post.province }}<br>
+    Phone: {{ exch.target_post.phone }}<br>
+    Category: {{ exch.target_post.category }}<br>
+    Owner: {{ exch.target_post.owner.first_name }} {{ exch.target_post.owner.last_name }}<br>
+
+    <hr>
+
+    <strong>Their Item:</strong><br>
+    {{ exch.proposer_post.title }}<br>
+    <img src="{{ url_for('static', filename='uploads/' + exch.proposer_post.image) }}" width="100"><br>
+    Province: {{ exch.proposer_post.province }}<br>
+    Phone: {{ exch.proposer_post.phone }}<br>
+    Category: {{ exch.proposer_post.category }}<br>
+    Owner: {{ exch.proposer.first_name }} {{ exch.proposer.last_name }}<br>
+
+    <form action="{{ url_for('main.accept_exchange', exchange_id=exch.id) }}" method="post" style="display:inline;">
+      <button type="submit" class="btn btn-success">Accept</button>
+    </form>
+    <form action="{{ url_for('main.reject_exchange', exchange_id=exch.id) }}" method="post" style="display:inline;">
+      <button type="submit" class="btn btn-danger">Reject</button>
+    </form>
+  </div>
+{% else %}
+  <p>No incoming requests.</p>
+{% endfor %}
+
+<hr>
+
+<h3>Outgoing Exchange Requests</h3>
+{% for exch in outgoing %}
+  <div class="card mb-3 p-3">
+    <strong>Your Item:</strong><br>
+{{ exch.proposer_post.title }}<br>
+{% if exch.proposer_post.image %}
+  <img src="{{ url_for('static', filename='uploads/' + exch.proposer_post.image) }}" width="100"><br>
+{% endif %}
+Province: {{ exch.proposer_post.province }}<br>
+Phone: {{ exch.proposer_post.phone }}<br>
+
+    Category: {{ exch.proposer_post.category }}<br>
+
+    <hr>
+
+    <strong>Target Item:</strong><br>
+    {{ exch.target_post.title }}<br>
+    <img src="{{ url_for('static', filename='uploads/' + exch.target_post.image) }}" width="100"><br>
+    Province: {{ exch.target_post.province }}<br>
+    Phone: {{ exch.target_post.phone }}<br>
+    Category: {{ exch.target_post.category }}<br>
+    Owner: {{ exch.target_post.owner.first_name }} {{ exch.target_post.owner.last_name }}<br>
+
+    {% if exch.is_accepted %}
+      <span class="badge badge-success">Accepted</span>
+    {% elif exch.is_rejected %}
+      <span class="badge badge-danger">Rejected</span>
+    {% else %}
+      <span class="badge badge-warning">Pending</span>
+    {% endif %}
+  </div>
+{% else %}
+  <p>No outgoing requests.</p>
+{% endfor %}
+{% endblock %}

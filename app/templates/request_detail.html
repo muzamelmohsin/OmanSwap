@@ -1,0 +1,33 @@
+{% extends "base.html" %}
+
+{% block content %}
+    <h2 class="text-center">{{ request.title }} - Request Details</h2>
+    <div class="card">
+        <div class="card-body">
+            {% if request.image %}
+                <img src="{{ url_for('static', filename='uploads/' ~ request.image) }}" class="img-fluid mb-3" style="max-width: 300px;">
+            {% endif %}
+            <h5 class="card-title">{{ request.title }}</h5>
+            <p class="card-text"><strong>Category:</strong> {{ request.category }}</p>
+            <p class="card-text"><strong>Description:</strong> {{ request.description }}</p>
+            <p class="card-text"><strong>Location:</strong> {{ request.province }}</p>
+            <p class="card-text"><strong>Phone:</strong> {{ request.phone }}</p>
+            <p class="card-text"><strong>Posted by:</strong> {{ request.user.first_name }} {{ request.user.last_name }}</p>
+
+            {% if request.status == 'accepted' %}
+                <p class="text-success"><strong>Item Already Accepted</strong></p>
+            {% else %}
+                {% if current_user.id == request.user_id %}
+                    <a href="{{ url_for('main.edit_request', request_id=request.id) }}" class="btn btn-warning">Edit Request</a>
+                    <form method="POST" action="{{ url_for('main.delete_request', request_id=request.id) }}" style="display:inline-block;">
+                        <button type="submit" class="btn btn-danger">Delete Request</button>
+                    </form>
+                {% else %}
+                    <form method="POST" action="{{ url_for('main.exchange_request', request_id=request.id) }}">
+                        <button type="submit" class="btn btn-success">Request Exchange</button>
+                    </form>
+                {% endif %}
+            {% endif %}
+        </div>
+    </div>
+{% endblock %}

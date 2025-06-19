@@ -1,0 +1,31 @@
+{% extends 'base.html' %}
+{% block content %}
+<h2>Propose Exchange</h2>
+
+<div class="card mb-3 p-3">
+  <strong>{{ target_post.title }}</strong><br>
+  <img src="{{ url_for('static', filename='uploads/' + target_post.image) }}" width="100"><br>
+  Province: {{ target_post.province }}<br>
+  Phone: {{ target_post.phone }}<br>
+  Category: {{ target_post.category }}<br>
+  <div>Contact:<a href="https://wa.me/target_post"> https://wa.me/{{ target_post.phone }}</a></div>
+</div>
+
+<form method="POST">
+    <div class="form-group">
+        <label>Select One of Your Posts:</label>
+        <select name="my_item_id" class="form-control" required>
+            {% for post in my_posts %}
+                <option value="{{ post.id }}">{{ post.title }}</option>
+            {% endfor %}
+        </select>
+    </div>
+
+    <div class="form-group">
+        <label>Message (Optional):</label>
+        <textarea name="message" class="form-control"></textarea>
+    </div>
+
+    <button type="submit" class="btn btn-primary">Send Request</button>
+</form>
+{% endblock %}

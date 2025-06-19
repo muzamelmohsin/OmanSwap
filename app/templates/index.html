@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Product Swap</title>
+</head>
+<body>
+<h1>Product Swap</h1>
+
+{% if session.get('username') %}
+    Welcome {{ session['username'] }} |
+    <a href="{{ url_for('logout') }}">Logout</a> |
+    <a href="{{ url_for('main.create_request') }}">Add Item</a>
+    {% if session.get('role') == 'admin' %}
+        | <a href="{{ url_for('admin') }}">Admin Panel</a>
+    {% endif %}
+{% else %}
+    <a href="{{ url_for('main.login') }}">Login</a> |
+    <a href="{{ url_for('main.register') }}">Register</a>
+{% endif %}
+
+<ul class="mt-4">
+{% for item in items %}
+    <li class="mb-4">
+        {% if item.image %}
+            <img src="{{ url_for('static', filename='uploads/' ~ item.image) }}" width="100"><br>
+        {% endif %}
+        <strong>{{ item.title }}</strong> ({{ item.category }})<br>
+        {{ item.description }}<br>
+        {% if session.get('username') and session['user_id'] != item.owner_id %}
+            <a href="{{ url_for('main.exchange_request', request_id=item.id) }}">Request Swap</a>
+        {% endif %}
+    </li>
+{% endfor %}
+</ul>
+</body>
+</html>

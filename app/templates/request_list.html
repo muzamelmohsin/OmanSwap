@@ -1,0 +1,19 @@
+{% extends "base.html" %}
+
+{% block content %}
+    <h2 style="text-align:center">Requests List</h2>
+    <div class="list-group">
+        {% for request in requests %}
+            <a href="{{ url_for('main.request_detail', request_id=request.id) }}" class="list-item">
+                <h5 class="mb-1">{{ request.content }}</h5>
+                <p class="mb-1">Category: {{ request.category }}</p>
+                <p class="mb-1">Location: {{ request.province }}</p>
+                <p class="mb-1">Phone: {{ request.phone }}</p>
+                <small>Posted by: {{ request.user.first_name }} {{ request.user.last_name }}</small>
+                {% if request.status == 'Item Already Accepted' %}
+                    <p class="text-success">Item Already Accepted</p>
+                {% endif %}
+            </a>
+        {% endfor %}
+    </div>
+{% endblock %}

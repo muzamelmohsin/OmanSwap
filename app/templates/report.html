@@ -1,0 +1,12 @@
+{% extends 'base.html' %}
+{% block content %}
+<h2>System Report</h2>
+<ul class="list-group">
+  <li class="list-group-item">Total Users: {{ stats.users }}</li>
+  <li class="list-group-item">Total Posts: {{ stats.posts }}</li>
+  <li class="list-group-item">Exchange Requests: {{ stats.total_requests }}</li>
+  <li class="list-group-item">Accepted Requests: {{ stats.accepted }}</li>
+  <li class="list-group-item">Rejected Requests: {{ stats.rejected }}</li>
+  <li class="list-group-item">Pending Requests: {{ stats.pending }}</li>
+</ul>
+{% endblock %}

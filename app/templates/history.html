@@ -1,0 +1,38 @@
+{% extends 'base.html' %}
+{% block content %}
+<h2>Exchange History</h2>
+
+<h3>My Accepted Posts</h3>
+{% for post in posts %}
+  <div class="card mb-3 p-3">
+    <strong>{{ post.title }}</strong><br>
+    <img src="{{ url_for('static', filename='uploads/' + post.image) }}" width="100"><br>
+    Posted by: {{ post.owner.username if post.owner else 'Unknown' }}<br>
+    Province: {{ post.province }}<br>
+    Phone: {{ post.phone }}<br>
+    Category: {{ post.category }}<br>
+  </div>
+{% else %}
+  <p>No accepted posts.</p>
+{% endfor %}
+
+<h3>Accepted Exchange Requests</h3>
+{% for exch in exchanges %}
+  <div class="card mb-3 p-3">
+    <strong>Proposer Item:</strong><br>
+    {{ exch.proposer_post.title }}<br>
+    <img src="{{ url_for('static', filename='uploads/' + exch.proposer_post.image) }}" width="100"><br>
+    Province: {{ exch.proposer_post.province }}<br>
+    Phone: {{ exch.proposer_post.phone }}<br>
+
+    <hr>
+    <strong>Target Item:</strong><br>
+    {{ exch.target_post.title }}<br>
+    <img src="{{ url_for('static', filename='uploads/' + exch.target_post.image) }}" width="100"><br>
+    Province: {{ exch.target_post.province }}<br>
+    Phone: {{ exch.target_post.phone }}<br>
+  </div>
+{% else %}
+  <p>No accepted exchanges.</p>
+{% endfor %}
+{% endblock %}

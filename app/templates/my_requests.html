@@ -1,0 +1,50 @@
+{% extends "base.html" %}
+
+{% block content %}
+<h2>My Posted Requests</h2>
+
+<a href="{{ url_for('main.create_request') }}" class="btn btn-primary mb-3">Create New Request</a>
+
+{% for req in requests %}
+    <div class="card mb-3">
+        <div class="card-body">
+            {% if req.image %}
+                <img src="{{ url_for('static', filename='uploads/' ~ req.image) }}" style="max-width: 200px;" class="mb-3">
+            {% endif %}
+            <h5><strong>{{ req.title }}</strong></h5>
+            <p><strong>Status:</strong> 
+                {% if req.status == 'accepted' %}
+                    <span class="text-success">Item already accepted</span>
+                {% else %}
+                    Open
+                {% endif %}
+            </p>
+
+            {% if req.status != 'accepted' %}
+                <a href="{{ url_for('main.edit_request', request_id=req.id) }}" class="btn btn-warning btn-sm">Edit</a>
+                <form method="POST" action="{{ url_for('main.delete_request', request_id=req.id) }}" class="d-inline">
+                    <button type="submit" class="btn btn-danger btn-sm">Delete</button>
+                </form>
+            {% endif %}
+
+            <h6 class="mt-3">Exchange Requests:</h6>
+            <ul>
+                {% for exch in req.exchanges %}
+                    <li>
+                        <strong>{{ exch.proposer.username }}</strong> wants to exchange.
+                        {% if not exch.is_accepted %}
+                            <form method="POST" action="{{ url_for('main.accept_exchange', exchange_id=exch.id) }}" class="d-inline">
+                                <button type="submit" class="btn btn-sm btn-success">Accept</button>
+                            </form>
+                        {% else %}
+                            <span class="text-muted">Accepted</span>
+                        {% endif %}
+                    </li>
+                {% else %}
+                    <li>No exchange requests yet.</li>
+                {% endfor %}
+            </ul>
+        </div>
+    </div>
+{% endfor %}
+{% endblock %}
